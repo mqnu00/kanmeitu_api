@@ -19,7 +19,8 @@ def requests_method(url, method, cnt=3, data=None):
                 response = requests.post(
                     url=url,
                     headers=requests_data.headers,
-                    data=data
+                    data=data,
+                    allow_redirects=False
                 )
 
             return response
