@@ -22,7 +22,6 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
         search_res_url = response.headers['Location']
         # 获取search_id
         search_id = search_res_url[search_res_url.find('searchid=') + len('searchid='):]
-        print(search_res_url)
 
     # 已知道page和search_id，可以直接获取搜索结果
     search_res_url = base_data.search_get_url.format(page, search_id)
@@ -64,4 +63,4 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
 
 
 if __name__ == '__main__':
-    print(pic_package_search(search_id=443, page=0))
+    print(pic_package_search('女仆'))

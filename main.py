@@ -1,14 +1,25 @@
-from flask import Flask
+from flask import Flask, request
 
+import pic_package_search
 import utils.requests_utils.requests_util
 
 app = Flask(__name__)
 
 
-@app.route('/index')
+@app.route('/search', methods=['GET'])
 def index():
-    return 'hello world!'
+    """
+    url http://localhost:8000/search?keyboard={}&search_id={}
+    """
+    keyboard = request.args.get('keyboard')
+    search_id = request.args.get('search_id')
+    print(keyboard, search_id)
+    if keyboard == "":
+        keyboard = None
+    if search_id == "":
+        search_id = None
+    return pic_package_search.pic_package_search(keyboard=keyboard, search_id=search_id)
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.10.233', port=8000)
+    app.run(host='0.0.0.0', port=8000)
