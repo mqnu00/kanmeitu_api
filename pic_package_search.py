@@ -75,5 +75,17 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
     return pic_package_info_list
 
 
+def pic_package_total_url(pic_package_url):
+
+    response = requests_util.requests_method(
+        url=pic_package_url,
+        method='get'
+    )
+
+    with open('test.html', 'wb') as f:
+        f.write(response.content)
+    return
+
+
 if __name__ == '__main__':
-    print(pic_package_search('女仆'))
+    print(pic_package_total_url('https://www.sfjpg.net/mm/59489.html'))
