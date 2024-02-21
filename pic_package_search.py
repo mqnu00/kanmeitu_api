@@ -36,7 +36,7 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
     # 获取图包个数
     pic_package_count = response.find('div', class_='b')
     pic_package_count = str(pic_package_count.text)
-    pic_package_count = pic_package_count[pic_package_count.find('（')+1:pic_package_count.find('组图')]
+    pic_package_count = pic_package_count[pic_package_count.find('（') + 1:pic_package_count.find('组图')]
     pic_package_count = int(pic_package_count)
     # 获取总页数
     pic_package_total_page = int(pic_package_count / 20)
@@ -76,7 +76,6 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
 
 
 def pic_package_total_url(pic_package_url):
-
     pic_package_url = pic_package_url
 
     response = requests_util.requests_method(
@@ -86,12 +85,19 @@ def pic_package_total_url(pic_package_url):
 
     response = BeautifulSoup(response.content, 'html.parser')
 
+    # 图片链接列表
+    pic_url_list = []
+
     # 图包图片数
     pic_package_count = response.findAll('div', class_='pagelist')[1].p.b.span.text
     pic_package_count = str(pic_package_count)
     pic_package_count = pic_package_count.split('/')[1]
     pic_package_count = int(pic_package_count)
     print(pic_package_count)
+
+    # 第一页的图片不能遍历
+    pic_url = response.find('img').get('src')
+    pic_url_list.append(pic_url)
 
     # 将图包网址修改成可遍历
     pic_package_url = pic_package_url.replace('.html', '_{}.html')
@@ -106,9 +112,12 @@ def pic_package_total_url(pic_package_url):
         )
         response = BeautifulSoup(response.content, 'html.parser')
         # 获取第i张图片的网址
+        if response.find('img') is None:
+            continue
         pic_url = response.find('img').get('src')
+        pic_url_list.append(pic_url)
 
-        print(pic_url)
+    return pic_url_list
 
 
 if __name__ == '__main__':

@@ -22,5 +22,15 @@ def index():
     return pic_package_search.pic_package_search(keyboard=keyboard, search_id=search_id, page=page)
 
 
+@app.route('/api/kanmeitu/view', methods=['GET'])
+def view():
+    """
+    url http://localhost:8000/api/kanmeitu/view?url=
+    :return:
+    """
+    url = request.args.get('url')
+    return pic_package_search.pic_package_total_url(url)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
