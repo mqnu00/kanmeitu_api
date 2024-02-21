@@ -30,3 +30,7 @@ def requests_method(url, method, cnt=3, data=None):
 
     return response
 
+
+def requests_session():
+
+    response = requests.session()
