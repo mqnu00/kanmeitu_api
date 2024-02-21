@@ -33,6 +33,16 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
 
     response = BeautifulSoup(response.content, 'html.parser')
 
+    # 获取图包个数
+    pic_package_count = response.find('div', class_='b')
+    pic_package_count = str(pic_package_count.text)
+    pic_package_count = pic_package_count[pic_package_count.find('（')+1:pic_package_count.find('组图')]
+    pic_package_count = int(pic_package_count)
+    # 获取总页数
+    pic_package_total_page = int(pic_package_count / 20)
+    if pic_package_count % 20 > 0:
+        pic_package_total_page = pic_package_total_page + 1
+
     # 获取当前页的图包网址列表 pic_package_info_list
     pic_package_info_list = response.find('div', id='list')
     pic_package_info_list = pic_package_info_list.ul
@@ -53,12 +63,15 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
         res.append({
             'name': pic_package_name,
             'preview': pic_package_preview_url,
-            'url': pic_package_url
+            'url': pic_package_url,
         })
     pic_package_info_list = {
         'searchid': search_id,
-        'result': res
+        'result': res,
+        'count': pic_package_count,
+        'totalPage': pic_package_total_page
     }
+    print(pic_package_count, pic_package_total_page)
     return pic_package_info_list
 
 
