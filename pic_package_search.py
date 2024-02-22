@@ -105,9 +105,9 @@ def pic_package_total_url(pic_package_url):
     # 将图包网址修改成可遍历
     pic_package_url = pic_package_url.replace('.html', '_{}.html')
 
-    process_data.process_max = pic_package_count
+    process_data.process_max = pic_package_count - 1
 
-    for i in range(2, pic_package_count + 1):
+    for i in range(2, pic_package_count):
 
         now_url = pic_package_url.format(i)
         response = requests_util.requests_method(
@@ -117,7 +117,6 @@ def pic_package_total_url(pic_package_url):
         response = BeautifulSoup(response.content, 'html.parser')
         # 获取第i张图片的网址
         if response.find('img') is None:
-            process_data.process_max = process_data.process_max - 1
             continue
         pic_url = response.find('img').get('src')
         pic_url_list.append(pic_url)

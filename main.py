@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route('/api/kanmeitu/search', methods=['GET'])
 def index():
     """
-    url http://localhost:8000/search?keyboard={}&search_id={}
+    url http://localhost:8000/search?keyboard={}&search_id={}&page={}
     """
     keyboard = request.args.get('keyboard')
     search_id = request.args.get('search_id')
