@@ -1,5 +1,8 @@
 import bs4
 from urllib.parse import urljoin
+
+import main
+import process_data
 from utils.requests_utils import requests_util
 from bs4 import BeautifulSoup
 import base_data
@@ -102,6 +105,8 @@ def pic_package_total_url(pic_package_url):
     # 将图包网址修改成可遍历
     pic_package_url = pic_package_url.replace('.html', '_{}.html')
 
+    process_data.process_max = pic_package_count
+
     for i in range(2, pic_package_count + 1):
 
         now_url = pic_package_url.format(i)
@@ -112,9 +117,11 @@ def pic_package_total_url(pic_package_url):
         response = BeautifulSoup(response.content, 'html.parser')
         # 获取第i张图片的网址
         if response.find('img') is None:
+            process_data.process_max = process_data.process_max - 1
             continue
         pic_url = response.find('img').get('src')
         pic_url_list.append(pic_url)
+        process_data.process_now = i
 
     return pic_url_list
 
