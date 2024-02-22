@@ -105,7 +105,6 @@ def pic_package_total_url(pic_package_url):
     for i in range(2, pic_package_count + 1):
 
         now_url = pic_package_url.format(i)
-        print(now_url)
         response = requests_util.requests_method(
             url=now_url,
             method='get'
