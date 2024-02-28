@@ -29,9 +29,8 @@ def view():
     url http://localhost:8000/api/kanmeitu/view?url=
     :return:
     """
-    process_data.process_max = 1
-    process_data.process_now = 0
     url = request.args.get('url')
+    
     return pic_package_search.pic_package_total_url(url)
 
 
@@ -41,12 +40,12 @@ def view_process():
     url http://localhost:8000/api/kanmeitu/view_process
     :return:
     """
-    print(process_data.process_now, process_data.process_max)
+    print(pic_package_search.process_now, pic_package_search.process_max)
     return {
-        'max': process_data.process_max,
-        'process': process_data.process_now
+        'max': pic_package_search.process_max,
+        'process': pic_package_search.process_now
     }
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8000, debug=True)

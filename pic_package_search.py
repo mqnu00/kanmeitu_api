@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 import base_data
 
 
+process_max = 1
+process_now = 0
+
+
 def pic_package_search(keyboard=None, page=0, search_id=None):
     response = None
 
@@ -79,6 +83,13 @@ def pic_package_search(keyboard=None, page=0, search_id=None):
 
 
 def pic_package_total_url(pic_package_url):
+
+    global process_max
+    global process_now
+
+    process_max = 1
+    process_now = 0
+
     pic_package_url = pic_package_url
 
     response = requests_util.requests_method(
@@ -105,9 +116,11 @@ def pic_package_total_url(pic_package_url):
     # 将图包网址修改成可遍历
     pic_package_url = pic_package_url.replace('.html', '_{}.html')
 
-    process_data.process_max = pic_package_count - 1
+    process_max = pic_package_count - 1
 
     for i in range(2, pic_package_count):
+
+        print(i, "???")
 
         now_url = pic_package_url.format(i)
         response = requests_util.requests_method(
@@ -120,7 +133,7 @@ def pic_package_total_url(pic_package_url):
             continue
         pic_url = response.find('img').get('src')
         pic_url_list.append(pic_url)
-        process_data.process_now = i
+        process_now = i
 
     return pic_url_list
 
