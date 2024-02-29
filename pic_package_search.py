@@ -127,7 +127,4 @@ def pic_package_total_url(pic_package_url):
 
 
 if __name__ == '__main__':
-    from utils.mysql_utils import pic_url, pic_package_info
-
-
-
+    print(pic_package_search('南宫'))
