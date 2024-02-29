@@ -41,9 +41,7 @@ def view():
     url http://localhost:8000/api/kanmeitu/view?url=
     :return:
     """
-    print(request)
     package_url = request.args.get('url')
-    print(package_url)
     package_id = package_url[package_url.find('mm/') + 3:-len('.html')]
     res = pic_package_info.select(package_id)
     if len(res) == 0:
@@ -56,7 +54,6 @@ def view():
         }
 
     else:
-        print("???")
         package_info = res[0]
         count = package_info[1]
         if count == 0:
