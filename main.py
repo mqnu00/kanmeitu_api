@@ -69,7 +69,7 @@ def view():
             if count != len(res):
                 return {
                     'status': True,
-                    'msg': '找到此数据，但是为收集完毕',
+                    'msg': '找到此数据，但是未收集完毕',
                     'data': res
                 }
             else:
